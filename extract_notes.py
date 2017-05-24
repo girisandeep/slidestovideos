@@ -16,6 +16,7 @@ def get_notes_from_googleslide(presentationId, credentials=None):
     service = discovery.build('slides', 'v1', http=http)
     presentation = service.presentations().get(presentationId=presentationId).execute()
     slides = presentation.get('slides')
+    print("Total Slides: " + str(len(slides)))
     for slide in slides:
         o = slide['slideProperties']['notesPage']['notesProperties']['speakerNotesObjectId']
         slide_notes = ""
@@ -26,7 +27,7 @@ def get_notes_from_googleslide(presentationId, credentials=None):
                         #print(te)
                         if 'textRun' in te:
                             slide_notes += te['textRun']['content'] + "\n"
-                            notes.append(slide_notes)
+        notes.append(slide_notes)
     return notes
 
 def export_notes(presentationId, dir=None, credentials=None):

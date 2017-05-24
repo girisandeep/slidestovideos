@@ -42,9 +42,9 @@ def save_as_file(txt, file, overwrite=False):
     with open(file, "w+") as f:
         f.write(txt)
 
-def save_items_as_files(list, dir):
-    for i in range(len(list)):
-        save_as_file(list[i].encode('utf-8'), dir + "/" + str(i) + ".txt");
+def save_items_as_files(lst, dir):
+    for i in range(len(lst)):
+        save_as_file(lst[i].encode('utf-8'), dir + "/" + "{:03d}".format(i) + ".txt");
 
 if __name__ == "__main__":
     print(get_credentials())
