@@ -34,8 +34,8 @@ def get_credentials():
     return credentials
 
 def save_as_file(txt, file, overwrite=False):
-    # print "Saving: " + txt
-    # print "To file: "  + file
+    print "Saving: " + txt
+    print "To file: "  + file
     if not overwrite:
         if os.path.exists(file):
             raise FileExistsError("Path '" + file + "' already exists.")
@@ -44,7 +44,7 @@ def save_as_file(txt, file, overwrite=False):
 
 def save_items_as_files(list, dir):
     for i in range(len(list)):
-        save_as_file(list[i], dir + "/" + str(i) + ".txt");
+        save_as_file(list[i].encode('utf-8'), dir + "/" + str(i) + ".txt");
 
 if __name__ == "__main__":
     print(get_credentials())

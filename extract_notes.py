@@ -27,7 +27,7 @@ def get_notes_from_googleslide(presentationId, credentials=None):
                         if 'textRun' in te:
                             slide_notes += te['textRun']['content'] + "\n"
                             notes.append(slide_notes)
-                            return notes
+    return notes
 
 def export_notes(presentationId, dir=None, credentials=None):
     if dir == None:
@@ -37,6 +37,7 @@ def export_notes(presentationId, dir=None, credentials=None):
     else:
         raise ValueError("Path '" + dir + "' already exists.")
     notes = get_notes_from_googleslide(presentationId, credentials);
+    print(notes)
     save_items_as_files(notes, dir)
 
 if __name__ == "__main__":

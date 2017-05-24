@@ -15,6 +15,7 @@ from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
+from extract_notes import get_notes_from_googleslide
 
 #PRESENTATION_ID = '1qLFjf7_tXY1S8WTycuukirbHDaJ6CEso6aTG47tYg1o'
 PRESENTATION_ID = '11bF5Qfqnz0NGyJ3cCv4Lwtj48s5AyAjWG7J4T6QkbzU'
@@ -25,58 +26,6 @@ TOTAL_SLIDES = 13
 OUTPUT = "output/"
 FINAL = "final.mp4" 
 LIST = "mylist.txt"
-
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/slides.googleapis.com-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/presentations.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'Google Slides API Python Quickstart'
-
-
-def get_credentials():
-    """Gets valid user credentials from storage.
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'slides.googleapis.com-python-quickstart.json')
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
-def create_notes_api(presentationId):
-	notes = []
-	credentials = get_credentials()
-	http = credentials.authorize(httplib2.Http())
-	service = discovery.build('slides', 'v1', http=http)
-	presentation = service.presentations().get(presentationId=presentationId).execute()
-	slides = presentation.get('slides')
-	for slide in slides:
-		o = slide['slideProperties']['notesPage']['notesProperties']['speakerNotesObjectId']
-		slide_notes = ""
-		for pe in slide['slideProperties']['notesPage']['pageElements']:
-			if pe['objectId'] == o:
-				if 'text' in pe['shape']:
-					for te in pe['shape']['text']['textElements']:
-						#print(te)
-						if 'textRun' in te:
-							slide_notes += te['textRun']['content'] + "\n"
-		notes.append(slide_notes)
-	return notes
 
 def concat(list, output):
 	call(["ffmpeg","-y", "-loglevel", "quiet", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", output])
@@ -90,11 +39,6 @@ def extract_notes(dr):
 	    s = content.text.replace("\n", " ");
 	    para = para + s + "\n"
 	return para;
-
-
-def savetxt(dr, file):
-	with open(file, "w+") as f:
-		f.write(dr.page_source.encode('utf-8'))
 
 
 def create_audio(text, filename):
@@ -124,7 +68,7 @@ def init():
 
 
 def main():
-	notes_all = create_notes_api(PRESENTATION_ID)
+	notes_all = get_notes_from_googleslide(PRESENTATION_ID)
 	print("Notes: ")
 	print(notes_all)
 	TOTAL_SLIDES = len(notes_all)
@@ -143,8 +87,8 @@ def main():
 			print("Saved screenshot " + img)
 				
 			#Extract Notes
-			#savetxt(dr, pref + ".html")
-			notes = extract_notes(dr)
+			#save_as_file(dr.page_source.encode('utf-8'), pref + ".html")
+			# notes = extract_notes(dr)
 	
 			#Save Audio
 			audio = pref + ".aiff"
