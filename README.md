@@ -5,3 +5,7 @@ It only works on Mac OS.
 
 It is very much a work in progress.
 
+1. Export Notes
+2. Create Audio
+3. Create Screen Cast
+4. Merge Audio + Video
