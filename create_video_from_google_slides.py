@@ -17,6 +17,8 @@ from oauth2client import tools
 from oauth2client.file import Storage
 from extract_notes import get_notes_from_googleslide
 from create_audio import create_audio
+from create_videos import merge_audio_video 
+from merge_videos import concat
 
 #PRESENTATION_ID = '1qLFjf7_tXY1S8WTycuukirbHDaJ6CEso6aTG47tYg1o'
 PRESENTATION_ID = '11bF5Qfqnz0NGyJ3cCv4Lwtj48s5AyAjWG7J4T6QkbzU'
@@ -28,8 +30,6 @@ OUTPUT = "output/"
 FINAL = "final.mp4" 
 LIST = "mylist.txt"
 
-def concat(list, output):
-	call(["ffmpeg","-y", "-loglevel", "quiet", "-f", "concat", "-safe", "0", "-i", list, "-c", "copy", output])
 
 def extract_notes(dr):
 	ws = dr.find_element_by_id("speakernotes-workspace")
@@ -39,10 +39,6 @@ def extract_notes(dr):
 	    s = content.text.replace("\n", " ");
 	    para = para + s + "\n"
 	return para;
-
-
-def merge_audio_video(image, audio, output):
-	call(["ffmpeg","-y","-loglevel", "quiet","-loop", "1", "-i", image, "-i", audio, "-c:v", "libx264", "-tune", "stillimage", "-c:a", "aac", "-b:a", "192k", "-pix_fmt", "yuv420p", "-shortest", output])
 
 
 def init():

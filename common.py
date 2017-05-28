@@ -1,5 +1,6 @@
 import os
 from oauth2client.file import Storage
+from oauth2client import client
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/slides.googleapis.com-python-quickstart.json

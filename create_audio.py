@@ -13,6 +13,7 @@ def create_audio(text, filename):
 #     # call(["say", "-v","tom","-r","170", text, "-o", filename])
 #     call(["say", "-v","tom", text, "-o", filename])
 
+
 if __name__ == "__main__":
     # all_notes = get_notes_from_googleslide('11bF5Qfqnz0NGyJ3cCv4Lwtj48s5AyAjWG7J4T6QkbzU')
     # # all_notes = get_notes_from_googleslide('11bF5Qfqnz0NGyJ3cCv4Lwtj48s5AyAjWG7J4T6QkbzU', get_credentials())

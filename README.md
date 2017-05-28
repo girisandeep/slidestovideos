@@ -3,9 +3,15 @@ This converts the google slides into videos. Slides snapshots are converted to v
 
 It only works on Mac OS.
 
+First install all requirements from requirement.txt
+
+Then install chromedriver: https://sites.google.com/a/chromium.org/chromedriver/downloads
+Also, create client secret JSON configs.
+
 It is very much a work in progress.
 
 1. Export Notes
 2. Create Audio
 3. Create Screen Cast
 4. Merge Audio + Video
+
