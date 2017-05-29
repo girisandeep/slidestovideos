@@ -46,7 +46,7 @@ def create_videos_files(audio_dir, audio_files, screenshot_dir, screenshot_files
         print "Found eq"
         audio_dict = to_dict(audio_files)
         screenshot_dict = to_dict(screenshot_files)
-        for ai in audio_dict:
+        for ai in sorted(audio_dict):
             audio_file = audio_dict[ai]
             screenshot_file = screenshot_dict[ai]
             output = videos_dir + "/" + ai + ".mp4"
