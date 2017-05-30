@@ -6,6 +6,9 @@ It only works on Mac OS.
 First install all requirements from requirement.txt
 
 Then install chromedriver: https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+Install ffmpeg using brew install ffmpeg
+
 Also, create client secret JSON configs.
 
 It is very much a work in progress.
