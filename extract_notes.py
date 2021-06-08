@@ -9,12 +9,12 @@ import os
 
 import argparse
 
-def get_notes_from_googleslide(presentationId, credentials=None):
+def get_notes_from_googleslide(presentationId, creds=None):
     notes = []
-    if credentials == None:
+    if creds == None:
         print("Creating credentials.")
-        credentials = get_credentials()
-    service = build('slides', 'v1', http=credentials.authorize(Http()))
+        creds = get_credentials()
+    service = build('slides', 'v1', credentials=creds)
     # http = credentials.authorize(httplib2.Http())
     # service = discovery.build('slides', 'v1', http=http)
     presentation = service.presentations().get(presentationId=presentationId).execute()
