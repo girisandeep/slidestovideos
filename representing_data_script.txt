@@ -1,0 +1,310 @@
+
+======= 000.txt =======
+Hi, welcome to the topic "Representing Data" which is part of Machine  Learning Course.
+
+In this video, we will learn
+
+======= 001.txt =======
+how to represent the data in the form which an algorithm can understand and process. Then we will learn key concepts in Machine Learning like splitting the dataset into train and test set, various sampling techniques, underfitting and overfitting.
+
+======= 002.txt =======
+Earlier, we learnt that machine learning can help us do prediction just like human brains do. But how do we get to that?
+
+We need to convert the problem in the format that algorithms want. Basically, we need to translate the problem into numbers - present real-life objects as numbers.
+
+======= 003.txt =======
+In the picture on the screen, on left, you see a robot from the movie ex machina and on the right, there are numbers from the movie matrix. Basically, in matrix the real world objects were being interpreted as a sequence of numbers. This is what we are going to do. Not really but close!
+
+======= 004.txt =======
+First of all, we need to present our data in the form of a table which has rows and columns.
+
+The rows represent the instances, data points or observations and columns represent the features or dimensions.
+
+Let us take some concrete examples.
+
+======= 005.txt =======
+… such as Iris Dataset. The iris dataset is quite popular in the machine learning domain. The dataset contains 50 samples of three varieties of the iris flower. The objective is to identify the iris flower type whether it is Versicolor, Setosa or Virginica
+
+======= 006.txt =======
+... based on the measurements of sepal and petal.
+
+This dataset is represented as a table. Each sample or observation is a row. As there are 50 samples of each variety, there are 150 total rows. Each sample is also called an instance or an observation.
+
+And the features such as the length and width of the sepal and petal in each sample are represented as columns. One of the columns is the label identifying the variety. 
+
+======= 007.txt =======
+Features are also called attributes, measurements or dimensions.
+
+We feed this table of data to an algorithm which creates the model. In other words, the model is trained using this tabular data. And once the model is ready, the model can be used to predict the label given the features of an instance.
+
+======= 008.txt =======
+Now let us take a case of MNIST dataset. MNIST stands for Modified National Institute of Standards and Technology database. The MNIST database is a large database of handwritten digits that is commonly used for training various image processing systems. The database is also widely used for training and testing in the field of machine learning.
+
+======= 009.txt =======
+Now, the question is how will we present this is a tabular form. What will be the features, label, and instances?
+
+======= 010.txt =======
+Since each observation is a single digit, a row in our dataset will be representing a single digit. And the manually identified what is actually written in handwriting is the label.
+
+Now, let us understand what will be the features. How can we represent the details of an image as columns?
+
+======= 011.txt =======
+Let us understand what does it mean by an image. Here the image is grayscale or you can say black-and-white. Such an image is basically a two-dimensional array of numbers. The black color is represented as 0 and white is represented as 255 and other shades in between. So, an image is a two-dimensional matrix of numbers. The are many ways of converting a two-dimensional image into a one-dimensional array or list of numbers. For now, we will take a simple approach whereby we will append all rows and make a single dimension array. An image having size 28 by 28 with total 784 pixels will be represented an array of 784 numbers.
+
+So, each row will have 784 columns hence 784 features.
+
+======= 012.txt =======
+The MNIST dataset can be represented in the tabular form where each row represents one hand-drawn digit and value of each pixel in the drawing is a feature.
+
+We will train our model using this dataset and then our model will be able to predict the label for the given unknown instance.
+
+======= 013.txt =======
+Some of the features may not be numerical. These features might be categorical. The categorical value needs to be converted to numeric.
+
+======= 014.txt =======
+There could be two kinds of categorical values. Ordinal and regular. Ordinal values are the values which have order such as high, low and medium. To convert the ordinal values into numbers is easy, we can simply assign 1,2,3 to various ordinal value in the sequence.
+
+The challenge arises with a regular categorical variable which don't have any order in between. The examples of regular categorical variables are Male, Female and Unknown.
+
+What to do with regular categorical variables? 
+
+Sometimes, the categorical variables might be in number form. To identify, check if the order of values has any significance. You need to treat such numerical columns like regular categorical values. For example, let say there is a column with name "gender" and has values 0, 1 and 2. Here 2 signifies male, 1 signifies female and 0 signifies unknown. Such columns are also to treated the way we treat the regular categorical values.
+
+======= 015.txt =======
+The regular categorical columns or features are represented using one hot encoding. In one hot encoding, we basically break a column into multiple columns - one column representing each value of category.
+
+As in the example, the data has a column "Company Name" which is a regular categorical variable. The values of various car companies name are VW, Acura, and Honda.
+
+======= 016.txt =======
+In one hot encoding, we create three columns one for each of the category values and mark the corresponding cell as 1 keep others as zero. So, we have three columns VW, Acura, Honda. 
+
+For the row with price 20000, the value of VW column is marked as one because that belonged to VW. Similar, in the second row, only Acura column is marked as 1 and for last two rows, only Honda is marked as 1.
+
+======= 017.txt =======
+Let’s say we have a dataset, with the “ID” column. What should we do with such a column? “ID” column’s value is unique across all rows and it is an identifier. Ideally, you should drop this column because it is not going to help you with predictions. 
+
+Similarly, if there is a column whose value is same across all rows, it is not a good predictor and hence we should drop such columns.
+
+======= 018.txt =======
+We learnt that once we have formatted our data in the form of a table of numbers, we can feed it to the algorithm to train our model. But how would we know if the trained model’s predictions are good or bad?
+
+======= 019.txt =======
+To solve this problem, we break the dataset into two sets: training and test.
+
+======= 020.txt =======
+Using the training set, we train the model
+
+======= 021.txt =======
+and using the test set we measure how well the trained model is doing.
+
+======= 022.txt =======
+Usually, we split the dataset into 80:20 ratio. 80% for the training set and 20% for testing set. Or in other words we pick random 20% instances for testing and keep remaining 80% for training.
+
+======= 023.txt =======
+For splitting the dataset into training and test set, if the dataset is not well balanced, the splitting may not be right. For example, say we have to identify if the given image represents a male or a female and our dataset contains 10 records having 8 male and 2 females images.
+
+======= 024.txt =======
+Say while splitting the dataset into train and test set in 80:20 ratio, we picked all the 8 males in the training set. This training set will not have any samples representing females. During training, the model will be trained only on male samples .
+
+======= 025.txt =======
+It will not have a clue when it encounters a female image during prediction. This is why we need to ensure that the records from all the classes or strata go in equal numbers in the training set. Hence, we need to do the stratified sampling on the basis of the features that are very important or labels which do not have equal representation.
+
+======= 026.txt =======
+Let us take a quick look at various kinds of sampling. There are majorly three kinds of sampling: Random Sampling, Cluster Sampling, and Stratified Sampling.
+
+======= 027.txt =======
+In random sampling, we pick the sample for test set completely at random. If there is a class imbalance (i.e. some of the values of labels are more frequent than others), we can't use the random sampling. 
+
+======= 028.txt =======
+In cluster sampling, we form the clusters of samples and we pick some of the clusters. This is again not very useful in case of picking the test set.
+
+======= 029.txt =======
+In stratified sampling, we form the strata such as male and female, kids and adults, rich and poor. And we pick the random samples from each stratum. This is generally useful in sampling for picking a random test set.
+
+======= 030.txt =======
+Once the data is split into train and test set and the model is trained on the training, we compare the predictions on the test set with actual values and measure the performance of the model.
+
+======= 031.txt =======
+Question is how do we measure the performance?
+
+======= 032.txt =======
+In the case of regression, we can compare the predicted values against the actual values by using mean square error as the criteria. In the diagram the blue bars are the predicted values and orange bars are actual value. There are four instances. To measure how well our model is performing, we compare these predictions against the actual values.
+
+======= 033.txt =======
+Mean squared error is basically summing up the squared differences of each prediction and actual values. Let's understand the mean square error with another example.
+
+======= 034.txt =======
+Say we have a model which predicts the house value in dollars based on how much area does it has. In other words, the model predicts the price of the house base on the floor area of the house. How will we check the performance of such as model? By comparing the prices predicted by the model against the actual prices of the house. How? Using the mean squared error as the measure of performance.
+
+======= 035.txt =======
+Let’s plot the house value and house area in the training set. Here on horizontal axis (or x-axis) we have the house area and on the vertical axis (y-axis) we have the the house value which needs to be predicted.
+
+======= 036.txt =======
+During the training phase, the algorithm tries to fit a line to the training set. The algorithm calculates weights w0 and w1 using the training set to come up with the equation of the line - House value equals w0 plus w1 multiplied by house area. Here w1 is the slope of line and w0 is the y-intercept of the line.
+
+======= 037.txt =======
+But this line may not be the best line to predict the house value for a given house area. Let’s say “y” is the actual value in the training set and “y hat” is the value predicted by the model.
+
+======= 038.txt =======
+Here the error in prediction is y hat minus y
+
+======= 039.txt =======
+To calculate the Mean Squared error, first, we square the error in the prediction.
+
+======= 040.txt =======
+And then we take the average of the squared error of all the instances in the training set.
+
+======= 041.txt =======
+Another popular criteria of measuring performance is the root mean square error ie RMSE. In RMSE, we take the square root of the mean squared error.
+
+======= 042.txt =======
+During the training, the algorithm tries to find many lines to fit data in the training set. 
+
+======= 043.txt =======
+The algorithm adjusts weights w0 - the y-intercept and w1 - the slope and figures out the line which has a minimum mean squared error and selects it as a line of best fit.
+
+Since trying all lines will take a lot of time. So, instead of trying all possible lines, we usually use a greedy approach called gradient descent which we will be studying later.
+
+======= 044.txt =======
+In the case of classification, we can't use the mean squared error as a performance measure, as in classification instead of predicting values we classify objects into the categories.
+
+For example, we classify if a given image is of a cat or not or classify animal images into the right categories. 
+
+======= 045.txt =======
+For classification, we either use accuracy or other performance measures such as confusion matrix, precision, recall rate, f1 score or ROC. We will learn these performance measures later in the course.
+
+======= 046.txt =======
+Let us briefly discuss what does it mean by accuracy. Accuracy means how many instances were correctly labeled out of the total predictions.
+
+======= 047.txt =======
+By choosing the right performance measure as per the problem and having a right test set, we can build our confidence on the model. If we don't have a proper way of testing the model, we will never be able to trust our model.
+
+======= 048.txt =======
+One of the very important concepts to understand in Machine learning is the concept of underfitting and overfitting. Let us understand it with a simple example.
+
+======= 049.txt =======
+Say, there are two kids who have prepared for a mathematics examination. First kid Tom only learnt additions. He skipped subtractions, multiplications, and divisions.
+
+======= 050.txt =======
+Second kid, Mary has a really good memory and she memorized all the problems from the textbook
+
+======= 051.txt =======
+In the exam, Tom will only be able to solve questions related to additions and will fail in questions related to subtractions, divisions and multiplications.
+
+======= 052.txt =======
+While Mary will only be able to answer the questions if they were from the textbook. Mary will falter if she encounters any question which was not in the textbook or if the question comes from any other textbook.
+
+======= 053.txt =======
+Both Tom and Mary will not be able to perform well in the exam.
+
+======= 054.txt =======
+Machine Learning algorithms also have similar behavior. Sometimes the models these algorithms generate are like Tom where they learn only some part from the data in the training set. In such cases, the model is called underfitting
+
+======= 055.txt =======
+And sometimes the models memorize the entire training set like Mary. They perform really well on the known instances but falter badly on unknown instances. In such cases, the model is called overfitting.
+
+======= 056.txt =======
+Let us take more examples of underfitting and overfitting in real life. 
+
+Say, you are visiting a foreign country and the taxi driver rips you off.
+
+======= 057.txt =======
+You might say that all the taxi drivers in that country are thieves. Which is too big a statement. You should not generalize all the taxi drivers in that country as thieves based on single bad incident. As humans, we overgeneralize too often and machines can also fall into the same trap if we are not careful.
+
+======= 058.txt =======
+Another taxi driver in that country may charge you as per the meter but as per your past experience, you will say this is guy also a thief. This is called overfitting,
+
+======= 059.txt =======
+means model performs well on the training data - in this case the old taxi driver
+
+======= 060.txt =======
+but it does not generalize well on unknown data - The new taxi driver
+
+======= 061.txt =======
+Let’s take one more example. Say you have built a model which predicts the life satisfaction based on the features like GDP per capita and country name.
+
+======= 062.txt =======
+Your model may learn that all the countries in the training data with “w” in their name have a life satisfaction greater than 7. As display in the graph, this is true for countries like Norway, and Switzerland. 
+
+======= 063.txt =======
+Now if you pass unknown countries which contain “w” in their name like Rwanda and Zimbabwe, your model will predict that the life satisfaction is greater than 7 in both Rwanda and Zimbabwe. But how confident are you about these predictions? According to the real world data both Rwanda and Zimbabwe has much lower life satisfaction. So these predictions are not correct. This is again overfitting.
+
+======= 064.txt =======
+The model has memorized that all the countries with “w” in their name have a life satisfaction greater than 7 
+
+======= 065.txt =======
+but it falters badly when it has to predict life satisfaction in new countries like Rwanda or Zimbabwe.
+
+======= 066.txt =======
+Let’s take one more example. Say we have some data points and we are trying to train a model on it. 
+
+The line on the left-hand side graph does not cover all the points. Such models are examples of underfitting. Please notice that predictions done by this line will have huge error even for the instances that it was trained upon.
+
+The underfitting models are called as the models with huge bias. Like in this example, the straight line has huge bias. The model is choosing to ignore the complexity of the data in favour its simplistic view of data.
+
+======= 067.txt =======
+On the other hand, the line on the right-hand side graph covers all the points. You may think that the right-hand side model is really good but this model, in fact, is an example of overfitting. The line may cover those points also which have noise. The noise could be due the error while collecting the data or taking the measurements.
+
+======= 068.txt =======
+The line on the middle graph shows a very good predicted line. It covers a majority of the point in the graph and also strikes the balance between underfitting on the left and overfitting on the right.
+
+======= 069.txt =======
+How do we identify if the model is underfitting or overfitting?
+
+Say, there is a model which performed really bad on the test data - the data it has never seen before. Bad performance could be because of underfitting or overfitting. We can't say anything right now. Then we check its performance on the training set - the same data on which it was trained on.
+
+If this model is performing well on the training data then it is overfitting otherwise it is underfitting.
+
+======= 070.txt =======
+How do we solve the problem of underfitting and overfitting?
+
+======= 071.txt =======
+If the model is underfitting, we move to more complex models. 
+
+If we were trying to fit a straight line, we should to fit the polynomial or complex graphs. We may want to go for deep learning models. If we are already using deep learning, then we may increase number of neurons or number of layers of neuron. 
+
+======= 072.txt =======
+If the model is overfitting, we regularize the models. In regularization, we constrain the model from memorizing everything. We try to decrease the degree of freedom of the model. 
+
+The regularization techniques are different for different kinds of models. For example, in case neural network, we turnoff some fraction of neurons temporarily. This technique is called drop out.
+
+We will dive deeper into these regularization techniques later in the course once we have learnt the individual models.
+
+======= 073.txt =======
+Let us revisit quickly what we have learnt so far in chapter.
+
+======= 074.txt =======
+In this chapter, we learnt how to represent data in the form which algorithm can understand and process. We present data in the form of a table which has rows and columns.
+
+The rows represent the instances, data points or observations and columns represent the features, attributes or dimensions.
+
+======= 075.txt =======
+We took an example iris dataset, Each row represents an instance, sample or an observation.
+
+And the features such as the length and width of the sepal and petal in each sample are represented as columns. One of the columns is the label identifying the variety. 
+
+======= 076.txt =======
+Then we learnt that original dataset is divided into training and test set. Using training set we train the model
+
+======= 077.txt =======
+and using the test set we measure how well the trained model is doing.
+
+======= 078.txt =======
+Then we learnt various sampling techniques like random, clustered and stratified sampling.
+
+======= 079.txt =======
+Then we learnt one of the popular performance measures - Mean Squared error
+
+======= 080.txt =======
+Then we learnt the meaning of underfitting and overfitting in machine learning.
+
+Underfitting means model did not learn all the patterns in the training data and hence does not perform well on the unknown or new instances. 
+
+======= 081.txt =======
+Overfitting means model has memorized the entire training set and falters badly on the unknown or new instances. Like Mary memorized every question in her maths textbook but could not answer the new questions or questions from different textbook
+
+======= 082.txt =======
+Hope you liked the chapter. Stay tuned for the next chapter and happy learning!
+
+https://discuss.cloudxlab.com/c/course-discussions/ai-and-ml-for-managers
+

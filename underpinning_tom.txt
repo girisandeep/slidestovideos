@@ -1,0 +1,748 @@
+======= 000.txt =======
+Welcome to the chapter the underpinnings of ML. This chapter will go a little deeper into Machine Learning, by focussing on how algorithms work. We will explore the important algorithms and their internal working in simple words using real-life examples without any maths or coding.
+
+
+We will learn concepts like Linear Regression, Decision Trees and Neural Networks.
+
+
+======= 001.txt =======
+In earlier chapters, we learnt that we feed the data having instances with features along with the expected output to the algorithm which generates the model. 
+
+
+======= 002.txt =======
+Then, this generated model can predict the output from the live data or the input for which we don't know the labels.
+
+
+======= 003.txt =======
+But what is there in the algorithm that generates the model? And what does a model mean? Let's try to answer these questions.
+
+
+======= 004.txt =======
+Let us take a really simple example of predicting the salary based on the number of years of experience. Say, after the first year, your salary was 2000. And after the second year, your salary became 4000, and the third year 6000. What will be your salary in the fourth year?
+
+
+That's right, it's 8000. 
+
+
+======= 005.txt =======
+Let us convert this problem into instances, features, and labels and see how to make the computers solve this problem.
+
+
+In our case, there is one feature "years of experience". In real life, there could be multiple features such as the area of expertise, the location etc. And there is one target or label - Salary. 
+
+
+======= 006.txt =======
+We would want to train a model 
+
+
+======= 007.txt =======
+such that the model can predict the salary for the fourth year.
+
+
+======= 008.txt =======
+Here, the model has predicted the salary for 4 years of experience as 8000.
+
+
+Now, let us understand what goes into training it.
+
+
+======= 009.txt =======
+A simple way to solve it is to just plot it on a chart. The horizontal axis being years of experience, and vertical axis being the salary.
+
+
+======= 010.txt =======
+======= 011.txt =======
+======= 012.txt =======
+
+
+======= 013.txt =======
+And once we are done with plotting, ...
+
+
+======= 014.txt =======
+…  we can figure out the salary for the 4th year ...
+
+
+======= 015.txt =======
+… which turns out to be 8000. Here we were lucky to have perfect data with which we could draw a straight line.
+
+
+======= 016.txt =======
+What if our data was more like real-world data where we don't always get a perfect line? Say if the salaries for the three years were 2010, 3980, 6020? Can we draw a  straight line that passes through all the points? No, we can't.
+
+
+So, what do we do in this case? How do we figure out the salary for the fourth year?
+
+
+======= 017.txt =======
+The first strategy is to come up with a straight line that is closest to all the points. This approach is known as linear regression. Though, there are various other ways to do prediction which we will talk about later. For now, what could be the definition of the best fitting line? The best fitting line or line of best fit is a line which is closest to all the points. Meaning, it has minimum error. So, we could find the average of total deviations. And we can calculate the total deviation either by summing up the absolute differences or the squares of differences. And find a line which has the minimum error.
+
+
+======= 018.txt =======
+Let us visualize the error. In this diagram, line 1 has the minimum error and hence it is the best line as compared to line 2 and 3.
+
+
+So, our machine learning algorithm needs to come up with such a line which has the minimum error. Each line is basically a model. The model or line that algorithm comes up will be used for predictions.
+
+
+======= 019.txt =======
+We could create a simple algorithm that iterates over all possible lines and keeps the best line so far. Such an algorithm will basically try lines with all possible slopes and distances from the center.
+
+
+What do you think is the challenge with this? It will take a huge amount of time to come up with the best model even in such a simple case.
+
+
+Why not try to go to the side where the error is reducing?
+
+
+======= 020.txt =======
+One such approach is Gradient Descent. Let's understand this approach.
+
+
+======= 021.txt =======
+Say, we start with a random line with some slope and intercept. 
+
+
+======= 022.txt =======
+And then we try increasing the slope a little bit and observe the change in error due to the change in the slope. Here we have three instances 2010, 3980 and 6020. To compute the change in error we will have to check with all the instances.
+
+
+======= 023.txt =======
+If the error is decreasing, we continue to increase slope at a faster pace. 
+
+
+======= 024.txt =======
+The question is how much should we change the slope to get the next line after each probe? In simple words, the increase in the slope should be proportional to the rate of decrease in error. The more the change in error, the more we should change the slope.
+
+
+======= 025.txt =======
+So, we can say that the increase in slope is equal to some constant multiplied by the rate of decrease in error. Please note that this decrease in error is with respect to the change in slope.
+
+
+======= 026.txt =======
+So, now we can say that the new slope is equal to the old slope plus the change. And the change is learning rate which is some constant number multiplied by the rate of decrease in error.
+
+
+======= 027.txt =======
+If the error is increasing with increasing slope, we decrease the slope as in the diagram.
+
+
+This method is called gradient descent. Gradient means the rate of change and descent means going down. We go to the side where the gradient of error is going down.
+
+
+Since a line is defined by slope and its distance from the center is called intercept, we do the same tweaking for the intercept too. 
+
+
+======= 028.txt =======
+Since the gradient descent is the core algorithm in machine learning and deep learning, we would spend more time on this. Say, we are trying to find a line that fits our data points.
+
+
+We start with a random line. Here the line is our model because using this line we will be doing the prediction of salaries as we did earlier. 
+
+
+======= 029.txt =======
+We then slightly increase the slope and calculate the change in error. Also, notice that to compute the change in error we will have to consult all the training instances.
+
+
+======= 030.txt =======
+If the error decreased due to increasing the slope, we continue to increase the slope in a greater amount proportional to the rate of change.
+
+
+======= 031.txt =======
+Otherwise if the error has increased, we go in the opposite direction that decreases the slope in the proportion of the rate of change. Larger the change in error per change in slope, larger the tweaking we do in the slope. 
+
+
+======= 032.txt =======
+If the error didn't change due to change in slope, we stop because we have probably found a line that is the best fit.
+
+
+======= 033.txt =======
+Afterwards, we go back to tweaking the slope again. It is called the next epoch or next iteration. We continue doing it until we find that the error is no longer changing due to tweaking. The model is the line which has two parameters - slope and the intercept. Also note that the way we tweaked the slope, we would be tweaking the intercept too.
+
+
+======= 034.txt =======
+Let us take one more example to understand the gradient descent. Say, you checked into a new hotel in winter and you have to take bath. Also, you don't know which side you should be rotating the knob to, to give cold and hot water.
+
+
+What would you do in order to get the best temperature of water for yourself?
+
+
+Think for a moment.
+
+
+One approach could be that we start with the knob at the extreme left and try all orientations.  But that would take too much time as well as it would waste lots of water. Could you think of a better approach? 
+
+
+Please take a moment to think.
+
+
+======= 035.txt =======
+Alright, so this is what we would do if we follow the gradient descent algorithm. We will start somewhere in the middle or any other random position of the knob. Check the water if it is of the right temperature. If it is, then, there is no point in tweaking further, you have found a comfortable temperature. And you can take bath.
+
+
+If the temperature of the water is not comfortable to you, either because it is too hot or too cold, you would like to tweak the position of the knob.
+
+
+======= 036.txt =======
+Now, you slightly rotate  the knob to the right and check if the temperature is going towards your comfortable side.
+
+
+======= 037.txt =======
+Then rotate it in the same direction by a larger amount.
+
+
+======= 038.txt =======
+And afterward, we continue the same process again.
+
+
+======= 039.txt =======
+If in the previous step, rotating slightly to the right was taking the temperature of the water to uncomfortable side (either too hot or too cold), we would twist the knob to the left by a large amount.
+
+
+======= 040.txt =======
+Once we have found the comfortable position, we can mark the angle and this is what we call our model. This particular model has only one weight that is an angle. The algorithm that we used was gradient descent. In machine learning, we make the computer use the gradient descent to tweak the model such that the model starts performing well first on the training set and then on the test set. Also, notice that once you have trained the model, running it is generally very fast. Only the training takes time.
+
+
+======= 041.txt =======
+Now, let us extend the same example to two knobs. What if we have two knobs - Maybe one for cold water and other for hot water but you don't know which one is which. Now, in this case, you will have to tweak both the knobs simultaneously in order to get the right flow and comfortable temperature. So, in this model, how many weights do we have? two , right?
+
+
+======= 042.txt =======
+At the end of training or tweaking, we would get the two positions of the knobs. In this model, we would be able to get two outputs - the right water flow and a good temperature but we have more weights to train and hence the training will take more time.
+
+
+======= 043.txt =======
+We can represent the same using this diagram.
+
+
+======= 044.txt =======
+What if we had more parameters such as climate, person’s details, and the input temperature. In that case, we would require a lot more weights or knobs and the model will be very complex.
+
+
+======= 045.txt =======
+Now let’s take a look at a different way of solving machine learning problems. It’s called Decision trees.
+
+
+======= 046.txt =======
+Even if we are not aware, we make hundreds of decisions based on simple conditional statements in our day-to-day life. Decision trees are just an extension of this way of making decisions. In the example on the screen, the decision tree is for deciding if I should accept a new job offer or not. First I check if the salary is at least fifty thousand dollars. If it is, then I check if the commute is more than 1 hour and then I check if it offers free coffee. So, based on these three questions I make a decision on whether to accept or reject the new job. 
+
+
+======= 047.txt =======
+Let’s take a simple example to demonstrate the working of a decision tree. Suppose we have the data on age and salary, and we want to predict the salary, for a given age. Let's see how can we solve this problem using decision trees.
+
+
+======= 048.txt =======
+First, let's visualize these data points on an age v/s salary graph.
+
+
+======= 049.txt =======
+A quick way to make the first level decision tree would be to split this data into two groups by drawing a vertical line somewhere in the middle of the age axis, say at age 25. Now we have a simple model that can predict the salary for a given age.
+
+
+======= 050.txt =======
+If we have to predict the salary of the person, identify which group he belongs to based on his age. If his age is greater than 25, then his salary will most probably be an average of ages of the group on the right side of the line.
+
+
+======= 051.txt =======
+And similarly, if the age is less than 25, then his salary would most probably be an average of the salaries of the group on the left of the line.
+
+
+======= 052.txt =======
+Let’s take one more example. We will use the IRIS dataset here which contains 150 rows or instances and four columns or features. Each of these observations is labeled as one of the three flowers - Setosa ,Versicolor or  Virginica. Let's see how can we use decision trees to identify a new instance of a flower.
+
+
+======= 053.txt =======
+To make it simple, we will use only two features - petal length and petal width. 
+
+
+======= 054.txt =======
+Using the first feature, the petal length, the algorithm has separated the flowers into two groups. One that has petal length lesser than 2.45 centimeters and the other that has greater than 2.45 centimeters.
+
+
+======= 055.txt =======
+What the algorithm has done is that based on the petal lengths of all the flowers in the 150 observations, it used the number 2.45 as the boundary condition for grouping one class of flowers. We will see later how we come up with these limits. The flowers that have petal length lesser than 2.45 cms are classified as setosa.
+
+
+======= 056.txt =======
+The flowers that have petal length greater than or equal to 2.45 cms are either Versicolor or  virginica. So we need the next criteria such as the petal width being lesser than 1.75 cm, in this case, to separate the remaining two classes of flowers.
+
+
+======= 057.txt =======
+As per this model, if the petal width is less than 1.75 cms, we know that this flower is most probably versicolor and if it is greater than 1.75 cms, it is virginica. The same process can be visualized in the form of a graph.  
+
+
+======= 058.txt =======
+We start by plotting the graph of petal length v/s petal width
+
+
+======= 059.txt =======
+Based on petal length, we draw the first boundary condition
+
+
+======= 060.txt =======
+Any instance that comes to the left of the boundary, is a setosa.
+
+
+======= 061.txt =======
+And then we draw the next boundary based on the next condition which is the petal width being less than 1.75.
+
+
+======= 062.txt =======
+The instances that come below the second boundary are versicolor and the ones that come above the second boundary are virginica.
+
+
+======= 063.txt =======
+Now that we have seen what a boundary condition is, let's understand how the algorithm actually comes up with the boundary condition. Let’s go back to the initial Age v/s Salary prediction problem. For ease of visualization, plot the points on the graph.
+
+
+======= 064.txt =======
+
+
+
+
+======= 065.txt =======
+In order to find the right boundary value, the algorithm does the following steps. It first picks the feature Age and assigns a boundary value to begin with. Now we have two groups of data.
+
+
+======= 066.txt =======
+Then it checks the purity of the groups. i.e, it finds how many of the similar instances are grouped together and how many of the dissimilar instances are grouped wrongly. Here similarity is based on the salaries of people. The group having similar salaries is purer than the one having less similar salaries.
+
+
+======= 067.txt =======
+If the similarity or purity is best so far, it keeps the boundary and moves on to choosing a new boundary.
+
+
+======= 068.txt =======
+It selects the boundary from the next age and then checks the purity or similarity of both the groups.
+
+
+======= 069.txt =======
+And this way it finds the best model which separates the data into two groups such that the data in either side is very similar to each other.
+
+
+======= 070.txt =======
+Once we have found the best boundary, we can go further and divide the data on each side of the boundary in the same fashion. Every time we divide the data, we are basically creating a node in the tree and hence the depth of the tree keeps on increasing.
+
+
+Also, notice that if we don't stop the decision tree from growing it will keep on dividing the data until it can't divide it further, that is, only one element is left in the group. This leads to overfitting because it would be able to do very precise predictions on known data but would not generalize well on the unknown data.
+
+
+======= 071.txt =======
+Here in this diagram, we are taking an example of the dataset where the outcome is non-linear. As the value of x is increasing the value of y first comes down and then it starts increasing. A straight line cannot be a good fit for such a dataset. But a decision tree is able to fit this data and it can do reasonable predictions.
+
+
+In the diagram, the vertical lines represent the boundaries or nodes of the decision tree while the horizontal lines represent the average value of each bucket.
+
+
+So, a decision tree is quite capable to do complex predictions that may not fit a straight line.
+
+
+======= 072.txt =======
+We have seen that decision trees are very popular because they are easy to visualize, interpret and explain but if not designed properly, there is a high probability of overfitting or memorization.
+
+
+In the situations where it is mandatory to be able to explain the model to various stakeholders, people prefer to use decision tree but controlled or regularized ones.
+
+
+======= 073.txt =======
+We will be briefly covering another way of coming up with a model called the SVM. But before that let’s understand what linear classifiers are.
+
+
+======= 074.txt =======
+Consider the two classes - setosa and versicolor - from the iris dataset. We can visualize the two groups on the graph. If we are to separate these two groups of data points using one straight line, we can have multiple such straight lines to do so. Simple linear classifiers do exactly this - separating the groups using straight lines. Here in this graph, three sample lines are shown - red, violet and a dotted green. While the red and the violet lines do a moderately good job, the green or dashed one clearly does not do a good job at separating the two classes of data. 
+
+
+======= 075.txt =======
+Now, let's focus on the two lines - red and violet which seem to do a good job. These lines are the linear models to classify the data.
+
+
+Do you think these lines are the best one to separate the data?
+
+
+======= 076.txt =======
+What about the instance A. The violet line will classify A as setosa even though it is very close to the versicolor.
+
+
+======= 077.txt =======
+And what about B, the red line will classify the instance B as versicolor even though it was supposed to be setosa. 
+
+
+So, neither of these lines are generalizing well.
+
+
+======= 078.txt =======
+How about the dotted black line? Will it be better than the violet and red line? 
+
+
+Will it be able to classify instance A and instance B really well? Yes, of course.
+
+
+So, just coming up with lines that able to separate the existing instances is not good enough. We need to come up with a line or a model that separates the classes with maximum margin. This is what our next topic SVM is about.
+
+
+======= 079.txt =======
+Now let’s compare this to another classifier called Support Vector Machines or SVM in short. Instead of just trying to separate the two groups, like a simple linear classifier, SVM tries to MAXIMISE the boundaries between the groups.
+
+
+======= 080.txt =======
+You can imagine the algorithm trying to fit the widest possible street between the two groups such that the two sides of the streets touch one of the boundary instances in each of the group. This is also called the large margin classification. Adding new training instances which are away from the boundary condition does not affect the model since the model only depends on the instances which are on the edge of the boundary.
+
+
+======= 081.txt =======
+These boundary instances are called support vectors, hence the name Support Vector machines.
+
+
+======= 082.txt =======
+The model, in this case, is the central line of the street. Using this middle line, we make the predictions.
+
+
+======= 083.txt =======
+Why is linear SVM better than the simple linear classifiers? 
+
+
+The instances in the simple linear classifier come so close to the boundary lines that, there might be a chance that a new instance might fall in either side of the classifier, and so might not perform well on unseen data.
+
+
+In SVM, on the other hand, because the decision boundaries are as far as possible between the two groups, there is a lesser chance that a new instance will fall into a wrong group, therefore ensuring better performance on new instances.
+
+
+======= 084.txt =======
+Now, that we established if we can come up with a maximum margin street between the instances, we would get a better model. The question is how to come up with such a street. There are two ways, one is mathematical and other is using gradient descent. The gradient descent way should be clear to you - all it will be doing is come up a random street, tweak it little and see the impact. If the impact is positive, keep going otherwise go in the opposite direction. 
+
+
+The mathematical way is really fast and used if you have very few instances. We would not be going into the mathematical way here.
+
+
+======= 085.txt =======
+Just like decision trees and linear models, the SVM can be used for regression along with classification. 
+
+
+In classification, the street should be widest such that it separates the instances well and in regression, the street should be narrowest such that it includes the instances well.
+
+
+======= 086.txt =======
+If we go back to our original problem of finding salary in the fourth year, how will the SVM solve it?
+
+
+======= 087.txt =======
+We will first come up with the support vectors that gives the narrowest street such that all the data points are well within the street.
+
+
+There are multiple streets, possible but one shown here seems to be optimum.
+
+
+======= 088.txt =======
+Once we have come up with the street, we can draw the central line ...
+
+
+======= 089.txt =======
+… which can be used for prediction.
+
+
+======= 090.txt =======
+This is your salary in fourth year.
+
+
+======= 091.txt =======
+To sum up,  SVMs are very versatile, since they are can be used for classification, regression and outlier detection. 
+
+
+Since SVMs focus on fixing the boundaries using a minimum number of data points, they are ideal candidates as models when we are dealing with small and medium datasets.
+
+
+======= 092.txt =======
+Now let's try to understand Neural networks - the algorithm fashioned based on the workings of an animal brain. In the recent past, the artificial neural networks are doing an incredible job in predicting.
+
+
+======= 093.txt =======
+This is a simple representation of how neurons are connected to each other. 
+Notice that all inputs are connected to all neurons… and each neurons is also connected to other neurons.
+
+
+======= 094.txt =======
+Here the input layer is represented in red 
+
+
+======= 095.txt =======
+and the output layer is represented in blue . 
+
+
+======= 096.txt =======
+A simple neural network has only one layer of neurons between the input and the output, otherwise known as the hidden layer. And a deep neural network has many hidden layers.
+
+
+======= 097.txt =======
+Let’s go back to the earlier example of the knobs controlling the temperature of the water, but here instead of having just two knobs, we have five knobs, linked to the five inputs features as shown. We need to turn the five knobs in any direction to give us the right flow and temperature of water . What will be the right positions of the knobs  to get the right temperature ? If we rotate individual knobs, we can come to a combination of knob positions that can give us the right temperature.
+
+
+======= 098.txt =======
+We could further improve the result if we add another layer of knobs such that the output of the first layer of knobs goes as input of the second layer. 
+
+
+We have another set of 5 knobs to fine-tune the output of the first layer of knobs.
+
+
+======= 099.txt =======
+Predictions could be improved further if we add a third layer of knobs. This can be a generalized analogy to a deep neural network with three hidden layers. 
+
+
+======= 100.txt =======
+We have seen that training a single neuron can be easily done using gradient descent.
+
+
+======= 101.txt =======
+Now how can we train a network that has two knobs or two neurons.Imagine the same scenario in the context of neural networks and think of these two knobs as neurons.
+
+
+Lets see a simplified version of the neural network.
+
+
+We have the same two inputs Hot and cold and our objective is to get the right temperature.
+
+
+======= 102.txt =======
+Let me introduce a new concept here called the ‘backward propagation of errors’ or back-propagation in short.
+
+
+To be clear, the knob on the left is first knob and the one on right is second.
+
+
+======= 103.txt =======
+Let’s start. The first step in the process is called initialisation where we assign random positions to both the knobs. 
+
+
+======= 104.txt =======
+Based on the position of the knobs, we calculate the temperature of water that is coming out from the first knob ( the interim temperature ) and also find out the temperature of the water that is coming out. And then note the difference in temperature with respect to the ideal temperature. This is called the forward pass.
+
+
+======= 105.txt =======
+Now, we start the back pass. In this step, we freeze the first knob and tweak the second knob a bit and observe the impact on the output. Did the temperature go to the right side or wrong side on rotating the knob slightly?
+
+
+======= 106.txt =======
+If it was going in right direction, we rotate the knob further else we rotate the knob in opposite direction. This is basically gradient descent. In this step, we rotate the second knob once.
+
+
+======= 107.txt =======
+We now freeze the position of the second knob and tweak the first knob . Essentially what we are doing here is adjusting the first knob by learning from the difference in temperature. This is the called back propagation.
+
+
+======= 108.txt =======
+======= 109.txt =======
+We now have a revised position for the first knob as well. And we are closer to the ideal temperature . We now go to the next iteration , or the next instance, and the process repeats starting from the forward pass step.
+
+
+======= 110.txt =======
+Let us get a real perspective of Artificial Neuron. It is basically a software construct.
+
+
+======= 111.txt =======
+Let’s get into the structure of a neuron in the context of Artificial neural networks . We have already seen that we get an output from the neuron based on the input provided to the neuron.
+
+
+======= 112.txt =======
+Apart from the input and the output, the two other components  that you need to know are the weight and the bias. Imagine the weight and the bias to be two knobs that need to be tweaked.
+
+
+======= 113.txt =======
+With respect to a neuron, in a neural network, input is multiplied by the weight and the bias is added to it to get the output.
+
+
+======= 114.txt =======
+Now, a common question people ask is why do we need bias?
+
+
+Is n't 
+weight sufficient to do the prediction? Can't we achieve all results with just the weight without bias?
+
+
+Let me take the same salary example with a little different data points. Imagine that you started your career with a salary of 1000 meaning at experience of 0 years, your salary was 1000 and then after 1 year of experience your salary was 1500 and with 2 years of experience your salary became 2000. The question is can we fit a line into this data that is going thru the center. We have two parameters to define line one is how slanting is the line i.e. it's slope and where it cuts the y-axis when x is zero. So, by varying two things slope and intercept, we can achieve a best fitting line.
+
+
+Similarly, in neuron we have weights and the bias. Bias signifies that even when the input is zero, there could be some value.
+
+
+======= 115.txt =======
+======= 116.txt =======
+======= 117.txt =======
+======= 118.txt =======
+Now let’s extend this to a network with two inputs. We take into account both the inputs, their corresponding weights and the bias. The output is a function of these weights and bias ...
+
+
+======= 119.txt =======
+… as represented by the equation shown. In other words, you can say the output is a weighted sum of inputs plus bias.
+
+
+Researcher further discovered that if we pass this output through a transformation called activation function, the final results are far better.
+
+
+======= 120.txt =======
+Let me explain what it means by activation function. The role of the activation function is to accept or reject the computed value from weights and bias. It is based on whether the value coming out of the neuron is either too low or too high.
+
+
+======= 121.txt =======
+We can simply represent the neuron having the activation function inside it.
+
+
+An activation function is a mathematical function to convert huge value into something smaller and also very small values into something closer to zero. So, idea is convert the result into zero or one - just like converting an analog signal to a digital signal.
+
+
+======= 122.txt =======
+To visualize the activation function, imagine a function within the neuron , which works like a switch, which turns a circuit on or off based on the magnitude of the value thats coming out of the neuron. 
+
+
+Thus, the activation function makes the neuron behave like a switch or logic-gate.
+
+
+======= 123.txt =======
+If we combine a bunch of such neurons and connect to each other - just like that of a series of circuits on a electronic circuit board - we can get a very complex network of neurons that can do amazing predictions.
+
+
+So, training a neural network is more like automatically coming up with a circuit using data that could give us desired results.
+
+
+======= 124.txt =======
+But how would we train such network using historical data? This is done using Back Propagation algorithm. Let’s understand back propagation with an example.
+
+
+======= 125.txt =======
+Let’s take a dataset with work experience and salary of 4 different employees. We will try to train a neural network with this training data. Here our input features are work experience and label is salary.
+
+
+======= 126.txt =======
+Here we are taking a simple example of two neurons - we call the left one as first and the right one as second. In this case, we have two weights and two biases meaning we need to tweak these four knobs. We want to come up with positions of the various knobs such that this neural network starts predicting salary based on work experience. Also, to make the calculations simpler, we are not using the activation functions in neurons. 
+
+
+======= 127.txt =======
+We go through the initialization phase, where we assign random values to the weights and biases. In this case , we have assigned 1.0 and 0.1 respectively to the weights of the connections of the first and second neuron. 50 and 30 are the biases assigned respectively.
+
+
+======= 128.txt =======
+We take the first record , feed the input from the dataset to the network. 
+Based on the data that we have 
+for this record, the expected output is 100.
+
+
+======= 129.txt =======
+We do the forward pass and calculate the value of  the intermediate stage i.e , value after the first neuron. This value is 54 in this case - 4 multiplied by 1 and added with 50.
+
+
+======= 130.txt =======
+The output from the first neuron goes in as the input for the second neuron and based on the weight and bias, the final value is calculated here we multiple  54 with 0.1 and added 30.
+
+
+======= 131.txt =======
+We now calculate the error 
+based on the  the computed value and the actual value. Remember, this is called the forward pass stage.
+
+
+======= 132.txt =======
+Now freezing the first set of knobs, i.e the weight and bias on the first neuron, we tweak the values of the weight and bias of the second neuron.
+
+
+======= 133.txt =======
+Next, we go one step backward and tweak the value of the weight and bias of the first neuron by keeping the weight and bias of the second neuron frozen. This, you might recall, is called the back pass.
+
+
+======= 134.txt =======
+We repeat the same process all over again, by feeding the second record to the network..  Please note that we don't re-initialize the weights before picking up the next instance because, we don’t want to lose the learning from the previous instance.
+
+
+======= 135.txt =======
+.. And then we do the same for third record ...
+
+
+======= 136.txt =======
+And then fourth record.
+
+
+======= 137.txt =======
+
+
+At every stage, the weights and biases of the neurons are fine tuned based on the difference in the actual and computed errors. 
+When all the records in the dataset have gone through the process, we say that it has completed an epoch. We now start again from the first record. This is called the second epoch. Note that we DONOT reinitialize the weights and bias when we start a new epoch. The weights and the bias from the previous epocs get carried forward to the subsequent epocs.
+
+
+======= 138.txt =======
+We continue this process as long as the overall error is going down.
+
+
+======= 139.txt =======
+Once the epochs are completed, we say that we have trained the network with our data. We are now ready for predicting the salary of a new employee whose number of years of experience is known.
+
+
+======= 140.txt =======
+Lets extend the use of neural network onto the MNIST dataset. Assume we have an instance of an image of digit 8. 
+The task of the network is to identify the image as one of the 10 digits , 0 to 9,  and assign it to the corresponding label.
+
+
+We have 784 pixels in this image. Each pixel is an input to the network. And we have 10 outputs labelled 0 to 9.
+
+
+======= 141.txt =======
+In such cases, where we are doing classification, we want the neural network to give out the probabilities. Here you can see that the network has predicted the highest probability i.e. 0.6 and therefore assigned it to the label 8.
+
+
+======= 142.txt =======
+Lets understand how this training was done, keeping in mind the same process of forward and backward pass that we saw earlier.
+
+
+======= 143.txt =======
+Just like the earlier example with 2 neurons, we initialize the weights and the biases of all the  neurons in all layers.
+
+
+======= 144.txt =======
+As a first step, we take the first instance, and then feed the inputs ( the pixel values ) to the 784 input neurons. The expected output, that is , the actual probability of the drawing of digit 8 is 1 while the other digits are 0.
+The exper
+
+
+======= 145.txt =======
+We calculate the intermediate values or probabilities 
+at the second layer
+ based on the weights assigned to the neurons and the biases. 
+
+
+======= 146.txt =======
+and then to we calculate the result final layer.
+
+
+======= 147.txt =======
+After the forward pass stage, we get the computed value for each label.
+
+
+======= 148.txt =======
+And find the error between the computed and the actual probabilities.
+
+
+======= 149.txt =======
+We now tweak the weights of the last layer by freezing the values of weights and biases of the other layers using gradient descent technique.
+
+
+======= 150.txt =======
+Now we move to the previous layer, in this case it is the first layer. We tweak the weights and biases of the first layer keeping the second layer frozen using gradient descent.
+
+
+======= 151.txt =======
+Once we are done tweaking the weights and biases of both the layers, we move on to the next instance. In this case we have shown that we picked 0. Now, the pixel values of zero will be fed to the neural network and the weights will be tweaked further such that the actual values match the predicted values.
+
+
+======= 152.txt =======
+After first round of training with all the instances data, we start the next iteration round from beginning without resetting the weights and biases. 
+The iteration is also known as epoch. 
+We keep the iterations going on as long as the overall error keep going down. If the error is no longer going down we stop iteration.
+
+
+This is how we train a neural network network to recognize the images. A similar strategy can be applied to recognize faces and to identify the speech and more…
+
+
+We may not be able to visualize how exactly the neural network is doing the magic or how the weights values impact the outcome. Though we can think of a neural network as a whole like a electronic circuit which is auto created in order to achieve the desired outcome.
+
+
+The weights and the biases along with the number of layers, number of neurons that are present in each layer and how neurons are connected defines the architecture of the network.
+
+
+======= 153.txt =======
+In this session, we covered how linear regression, decision trees, SVM and neural networks actually work. We can combine and improvise on these approaches to get even better results which we will be discussing in the  next chapter.
+
+
+I hope you like this session. Thank You.
