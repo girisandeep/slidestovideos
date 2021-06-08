@@ -58,7 +58,7 @@ def main():
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('slides', 'v1', http=http)
 
-    presentationId = '1ny4_RoEaxS5VSO0CY2CSO_yPG_deA3Pe3Ezx8pPQRiI'
+    presentationId = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
     presentation = service.presentations().get(
         presentationId=presentationId).execute()
     slides = presentation.get('slides')
@@ -70,4 +70,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

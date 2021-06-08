@@ -10,7 +10,7 @@ from os.path import expanduser
 import hashlib
 import sys
 import time
-
+from subprocess import call
 def hash(s):
     m = hashlib.md5()
     m.update(s)
@@ -134,6 +134,7 @@ def take_screen_shots(presentation_id, output_dir=None, total_slides=None):
                 myDynamicElement = dr.find_element_by_id("myDynamicElement")
             except:
                 pass
+    call(["say", "Finished taking screenshot. You can press escape to exit fullscreen"]);
     if query_yes_no("Do you want to save the session?", default="yes"):
         savecookies(dr, url)
 

@@ -2,6 +2,8 @@ from common import get_credentials
 import httplib2
 from apiclient import discovery
 from common import save_items_as_files
+from googleapiclient.discovery import build
+from httplib2 import Http
 
 import os
 
@@ -10,10 +12,11 @@ import argparse
 def get_notes_from_googleslide(presentationId, credentials=None):
     notes = []
     if credentials == None:
-        print "Creating credentials."
+        print("Creating credentials.")
         credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('slides', 'v1', http=http)
+    service = build('slides', 'v1', http=credentials.authorize(Http()))
+    # http = credentials.authorize(httplib2.Http())
+    # service = discovery.build('slides', 'v1', http=http)
     presentation = service.presentations().get(presentationId=presentationId).execute()
     slides = presentation.get('slides')
     print("Total Slides: " + str(len(slides)))
