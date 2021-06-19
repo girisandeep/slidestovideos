@@ -28,7 +28,7 @@ def are_equal(audio_files, screenshot_files):
         print(l2)
         are_eq = False
     if are_eq:
-        print "Both are equal"
+        print ("Both are equal")
     return are_eq
 
 def to_dict(l):
@@ -39,11 +39,11 @@ def to_dict(l):
 
 def create_videos_files(audio_dir, audio_files, screenshot_dir, screenshot_files, videos_dir):
     if os.path.exists(videos_dir):
-        print "Output directory " + videos_dir + " exists. Please remove the directory."
+        print("Output directory " + videos_dir + " exists. Please remove the directory.")
     else:
         os.mkdir(videos_dir)
     if are_equal(audio_files, screenshot_files):
-        print "Found eq"
+        # print "Found eq"
         audio_dict = to_dict(audio_files)
         screenshot_dict = to_dict(screenshot_files)
         for ai in sorted(audio_dict):
@@ -51,7 +51,7 @@ def create_videos_files(audio_dir, audio_files, screenshot_dir, screenshot_files
             screenshot_file = screenshot_dict[ai]
             output = videos_dir + "/" + ai + ".mp4"
             
-            print "Trying to create: " + output
+            print("Trying to create: " + output)
             merge_audio_video(screenshot_dir + "/" + screenshot_file, audio_dir + "/" + audio_file, output)
 
 if __name__ == "__main__":

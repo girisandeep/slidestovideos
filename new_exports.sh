@@ -113,5 +113,9 @@ python ../merge_videos.py videos multi_videos Graphx:1-12
 python extract_notes.py 1y6tXF7GkR0pLYJE6ljOyVZtZ1RGxiGual4T9ZVrrjHA challenges
 ./concat_notes.sh challenges
 
-python /Users/sandeep/projects/slidestovideos/extract_notes.py 1YTEHdCIwcIL8F5qj6IIc7ArtlernrDxfZt7q_U-fjMM zk_single_system_image
-./concat_notes.sh zk_single_system_image
+python /Users/sandeep/projects/slidestovideos/extract_notes.py 1YTEHdCIwcIL8F5qj6IIc7ArtlernrDxfZt7q_U-fjMM zk_single_system_image/scripts
+#./concat_notes.sh zk_single_system_image
+python google_tts.py zk_single_system_image zk_single_system_image/audio
+python create_screen_shots.py 1YTEHdCIwcIL8F5qj6IIc7ArtlernrDxfZt7q_U-fjMM zk_single_system_image/screenshots
+cd zk_single_system_image; python ../create_videos.py
+python ../merge_videos.py videos multi_videos zk_single_system_image:1-8

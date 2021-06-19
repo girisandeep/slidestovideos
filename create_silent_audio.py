@@ -2,8 +2,8 @@ from subprocess import call
 import argparse
 
 def create_silent_audio(seconds, outputfilename):
-    print "Seconds: " + str(seconds)
-    print "output: " + outputfilename
+    print ("Seconds: " + str(seconds))
+    print ("output: " + outputfilename)
     #call(["ffmpeg", "-ar", "48000", "-t", str(seconds), "-f", "s16le", "-acodec", "pcm_s16le", "-ac", "2", "-i", "/dev/zero", "-acodec", "copy", outputfilename])
     call(["ffmpeg", "-ar", "48000", "-t", str(seconds), "-f", "s16le", "-acodec", "pcm_s16le", "-ac", "2", "-i", "/dev/zero", "-acodec", "libmp3lame", "-aq", "4", outputfilename])
 

@@ -1,0 +1,10 @@
+
+# Create and keeping updating the videos
+src/
+    extract_notes       (presentation_id)   --> notes/N.txt
+        + Skips the process if notes folder exists and is not empty
+    create_notes_audio  (notes/N.txt, audio/.notes_cache/N.txt) = None)      -->  audio/N.mp3
+        
+    take_screensots     (presentation_id)   --> screensots/N.jpeg
+    create_video        (audio/N.mp3, screensots/N.jpeg)   --> videos/N.mp4
+    concat_video        (videos/N.mp4) ---> movie.mp4

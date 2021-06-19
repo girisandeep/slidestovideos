@@ -3,10 +3,10 @@ import os
 import argparse
 
 def concat(lst, output):
-    print "lst: " + lst
-    print "output: " + output
+    print ("lst: " + lst)
+    print( "output: " + output)
     cmd = ["ffmpeg","-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", output]
-    print cmd
+    print (cmd)
     call(cmd)
 
 # def concat_all(videos_dir, output_filename):
@@ -21,22 +21,22 @@ def concat(lst, output):
 #ffmpeg -i videos/036.mp4 -i videos/037.mp4 -i videos/038.mp4 -filter_complex 
 #"[0:v:0] [0:a:0] [1:v:0] [1:a:0] [2:v:0] [2:a:0] concat=n=3:v=1:a=1 [v] [a]" -map "[v]" -map "[a]" output.mp4
 def concat_multi_safe(videos_dir, range_arr, output_dirname, output_filename, extn):
-    print "videos_dir: " + videos_dir
-    print "range_arr: " + str(range_arr)
+    print( "videos_dir: " + videos_dir)
+    print ("range_arr: " + str(range_arr))
     if not os.path.exists(output_dirname):
         os.mkdir(output_dirname)
     outputfile_fullname = output_dirname + "/" + output_filename + extn;
-    print "outputfile_fullname: " + outputfile_fullname
+    print ("outputfile_fullname: " + outputfile_fullname)
     allvideos = os.listdir(videos_dir)
     allvideos.sort();
     filter_complex = ""
     allargs = ['ffmpeg']
     i = 0;
-    print "All Videos: "
-    print allvideos
-    print "Len: " + str(len(allvideos))
-    print "Range: "
-    print range_arr
+    print ("All Videos: ")
+    print (allvideos)
+    print ("Len: " + str(len(allvideos)))
+    print ("Range: ")
+    print (range_arr)
     for index in range_arr:
         vid = allvideos[index-1]
         allargs.append("-i")
@@ -48,7 +48,7 @@ def concat_multi_safe(videos_dir, range_arr, output_dirname, output_filename, ex
     allargs.append(filter_complex)
     allargs.extend('-map [v] -map [a]'.split(" "))
     allargs.append(outputfile_fullname);
-    print allargs
+    print (allargs)
     call(allargs)
 
 def concat_multi(videos_dir, range_arr, output_dirname, output_filename, extn):
@@ -57,7 +57,7 @@ def concat_multi(videos_dir, range_arr, output_dirname, output_filename, extn):
     if not os.path.exists(output_dirname):
         os.mkdir(output_dirname)
     outputfile_fullname = output_dirname + "/" + output_filename + extn;
-    print "outputfile_fullname: " + outputfile_fullname
+    print ("outputfile_fullname: " + outputfile_fullname)
 
     allvideos = os.listdir(videos_dir)
     allvideos.sort();
@@ -72,7 +72,7 @@ def concat_multi(videos_dir, range_arr, output_dirname, output_filename, extn):
 
 def concat_multi_seq(videos_dir, seqs, output_dirname):
     for v in seqs:
-        print v
+        print (v)
         (name, nums) = v.split(':');
         range_arr = []
         for ranges in nums.split(','):

@@ -16,19 +16,20 @@ def hash(s):
     m.update(s)
     return m.hexdigest()
 
+cookie_dir = expanduser("~") + "/.seleniumsessions"
+cookie_file = cookie_dir + "/cookies"
+
 def gen_cookie_file(url, cookie_file_name=None):
-    cookie_dir = expanduser("~") + "/.seleniumsessions"
+    
     if not os.path.exists(cookie_dir):
         os.mkdir(cookie_dir)
-
     if cookie_file_name == None:
         cookie_file_name = hash(url)
-
     cookie_file = cookie_dir + "/" + cookie_file_name
     return cookie_file;
 
 def loadcookies(driver, url, cookie_file_name=None):
-    cookie_file = gen_cookie_file(url, cookie_file_name)
+     #gen_cookie_file(url, cookie_file_name)
     if os.path.exists(cookie_file):
         # for cookie in pickle.load(open(cookie_file, "rb")):
         #     driver.add_cookie(cookie)
@@ -37,7 +38,7 @@ def loadcookies(driver, url, cookie_file_name=None):
         return (cookie_file, False)
 
 def savecookies(driver, url, cookie_file_name=None):
-    cookie_file = gen_cookie_file(url, cookie_file_name)
+    # cookie_file = gen_cookie_file(url, cookie_file_name)
     pickle.dump(driver.get_cookies() , open(cookie_file,"wb"))
 
 def fullscreen(dr):
@@ -92,7 +93,7 @@ def query_yes_no(question, default="yes"):
 
     while True:
         sys.stdout.write(question + prompt)
-        choice = raw_input().lower()
+        choice = input().lower()
         if default is not None and choice == '':
             return valid[default]
         elif choice in valid:
