@@ -2,6 +2,8 @@ from googleapiclient.discovery import build
 from common import get_credentials
 import requests
 import argparse
+from common import save_as_file
+import os
 
 def get_slide_objectids(service, presentationId):
     presentation = service.presentations().get(presentationId=presentationId).execute()
@@ -9,19 +11,19 @@ def get_slide_objectids(service, presentationId):
     return slides_ids
 
 def save_thumbnail(filename, res, exception):
-    print("filename: ", filename)
-    print("Response: ", res)
+    # print("filename: ", filename)
+    # print("Response: ", res)
     response = requests.get(res['contentUrl'])
-    file = open(filename, "wb")
-    file.write(response.content)
-    file.close()
-
+    save_as_file(response.content, filename)
+    
 def take_screen_shots(presentationId, outdir):
     # if creds == None:
     #     print("Creating credentials.")
     creds = get_credentials()
     service = build('slides', 'v1', credentials=creds)
     slides_ids = get_slide_objectids(service, presentationId)
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
     br = service.new_batch_http_request(save_thumbnail)
     for i, slideId in enumerate(slides_ids):
         br.add(service.presentations().pages().getThumbnail(presentationId = presentationId,pageObjectId=slideId, thumbnailProperties_mimeType="PNG",thumbnailProperties_thumbnailSize="LARGE"), request_id=outdir + "/" + str(i+1) + ".png")

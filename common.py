@@ -29,14 +29,17 @@ def get_credentials():
     return creds
 
 def save_as_file(txt, file, overwrite=False):
-    print ("Saving: ",txt)
-    print ("To file: ", file)
+    # print ("Saving: ",txt)
+    # print ("To file: ", file)
     # if not overwrite:
     #     if os.path.exists(file):
     #         raise FileExistsError("Path '" + file + "' already exists.")
     tmpfile = file + "._tmp"
     with open(tmpfile, "wb+") as f:
         f.write(txt)
+    move_tmp_to_actual(tmpfile, file)
+
+def move_tmp_to_actual(tmpfile, file):
     if os.path.exists(file):
         # Find diff
         cmd = "md5sum %s %s|awk '{print $1}'|sort|uniq" %(tmpfile, file)
