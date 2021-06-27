@@ -38,8 +38,8 @@ def export_notes(presentationId, dir=None, credentials=None):
         dir = presentationId
     if not os.path.exists(dir):
         os.mkdir(dir)
-    else:
-        raise ValueError("Path '" + dir + "' already exists.")
+    # else:
+    #     raise ValueError("Path '" + dir + "' already exists.")
     notes = get_notes_from_googleslide(presentationId, credentials);
     print(notes)
     save_items_as_files(notes, dir)

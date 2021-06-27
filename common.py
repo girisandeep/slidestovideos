@@ -31,11 +31,21 @@ def get_credentials():
 def save_as_file(txt, file, overwrite=False):
     print ("Saving: ",txt)
     print ("To file: ", file)
-    if not overwrite:
-        if os.path.exists(file):
-            raise FileExistsError("Path '" + file + "' already exists.")
-    with open(file, "wb+") as f:
+    # if not overwrite:
+    #     if os.path.exists(file):
+    #         raise FileExistsError("Path '" + file + "' already exists.")
+    tmpfile = file + "._tmp"
+    with open(tmpfile, "wb+") as f:
         f.write(txt)
+    if os.path.exists(file):
+        # Find diff
+        cmd = "md5sum %s %s|awk '{print $1}'|sort|uniq" %(tmpfile, file)
+        if len(os.popen(cmd).read().split()) == 1:
+            print("Same content exists. Removing newly downloaded file.")
+            print(os.popen("rm %s" %tmpfile).read())
+            return
+    print(os.popen("mv %s %s" %(tmpfile, file)).read())
+
 
 def save_items_as_files(lst, dir):
     for i in range(len(lst)):
